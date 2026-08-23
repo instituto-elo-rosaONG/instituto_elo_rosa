@@ -544,10 +544,13 @@ footer{
   justify-content:center;
 }
 
-/* COLUNA CENTRAL — logo do instituto (substitui a antiga ilustração da flor) */
+/* COLUNA CENTRAL — logo do instituto + "Sponsored by" embaixo dela */
 .footer-col-center{
   display:flex;
+  flex-direction:column;         /* logo em cima, sponsor embaixo */
+  align-items:center;
   justify-content:center;
+  gap:18px;
   overflow:visible;
 }
 .footer-logo{
@@ -663,24 +666,34 @@ footer{
 }
 
 /* --------------------------------------------------------------------------
-   1.8c — "SPONSORED BY" — pequeno, centralizado, com ícone de caveira
-   linkando para o Instagram do patrocinador. Fica entre a grade principal
-   do rodapé e a linha de copyright.
+   1.8c — "SPONSORED BY" — na base da peça central (embaixo da logo),
+   centralizado. Ícone = imagem "zaluvin.png", tingida de vermelho pastel
+   suave via CSS mask (assim controlamos a cor exata sem depender da cor
+   original do arquivo), linkando para o Instagram do patrocinador.
    -------------------------------------------------------------------------- */
 .footer-sponsor{
   display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:32px;
   font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
   color:rgba(247,241,234,.45);
 }
 .footer-sponsor-icon{
-  font-size:16px;line-height:1;
-  filter:grayscale(.15);
-  transition:transform .25s ease, filter .25s ease;
+  width:20px;height:20px;flex-shrink:0;
+  display:inline-block;
+  /* vermelho pastel suave, aplicado como cor sólida através da máscara */
+  background-color:#E9A6A0;
+  -webkit-mask-image:url('../images/zaluvin.png');
+  mask-image:url('../images/zaluvin.png');
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  -webkit-mask-size:contain;
+  mask-size:contain;
+  transition:transform .25s ease, background-color .25s ease;
 }
 .footer-sponsor-icon:hover{
   transform:scale(1.15) rotate(-6deg);
-  filter:grayscale(0);
+  background-color:#F0BDB8;  /* vermelho pastel um pouco mais claro no hover */
 }
 
 /* Linha inferior do rodapé: copyright à esquerda, slogan à direita */

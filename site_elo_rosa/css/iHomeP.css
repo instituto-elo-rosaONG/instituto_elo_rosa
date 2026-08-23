@@ -141,7 +141,9 @@ a{color:inherit;text-decoration:none;}
 .hero-inner{
   position:relative;z-index:2;
   width:100%;
-  padding:0 6vw 8vh;
+  /* "suba o texto": menos espaço embaixo empurra o bloco de texto para
+     cima dentro do herói (era 8vh) */
+  padding:0 6vw 4.5vh;
 }
 .hero-copy{max-width:600px;}
 
@@ -169,21 +171,29 @@ a{color:inherit;text-decoration:none;}
   /* mesma hierarquia visual do título: tamanho relativo à fonte do título,
      sem fundo/círculo, para não parecer um "ícone menor" ao lado do texto */
   width:1em;height:1em;
-  font-size:clamp(30px,5vw,52px);  /* acompanha o tamanho do .hero-title */
+  font-size:clamp(36px,6vw,64px);  /* acompanha o novo tamanho do .hero-title */
   flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
 }
 .hero-logo img{width:100%;height:100%;object-fit:contain;}
 .hero-title{
-  /* "grande, mas não exagerado": propositalmente menor que o antigo h1 de
-     tagline (que ia até 96px) */
-  font-size:clamp(30px,5vw,52px);
+  /* título aumentado, a pedido — ainda contido, sem chegar ao extremo do
+     antigo h1 de tagline (que ia até 96px) */
+  font-size:clamp(36px,6vw,64px);
   font-weight:600;line-height:1.08;letter-spacing:-.01em;
   color:var(--cream);
   text-shadow:0 4px 24px rgba(0,0,0,.35);
 }
+/* "Elo Rosa" ganha um tom rosa sutil dentro do título — "Instituto" segue
+   na cor padrão (creme), só o nome próprio muda de cor, discretamente
+   (rosa suave + sombra reduzida, para não competir com o resto do texto) */
+.hero-title-accent{
+  color:var(--pink);
+  opacity:.92;
+  text-shadow:0 2px 14px rgba(0,0,0,.22);
+}
 @media(max-width:760px){
-  .hero-logo{font-size:clamp(24px,7vw,36px);}
+  .hero-logo{font-size:clamp(28px,8vw,44px);}
 }
 
 /* tagline curta, logo abaixo do título grande (frase que já existia).
@@ -280,16 +290,26 @@ section{padding:120px 6vw;position:relative;}
    1.6 — GRADE DE MISSÃO/VISÃO/PROPÓSITO ("quem somos")
    Cada card é um "losango": um retângulo levemente inclinado (15°) que
    nasce e termina na mesma linha de base — como cartas apoiadas numa mesa,
-   alinhadas por baixo (transform-origin: bottom center).
+   alinhadas por baixo (transform-origin: bottom center). As LARGURAS/
+   ALTURAS são fixas e IDÊNTICAS nos 3 cards (mesmo tamanho, sempre).
 
-   Estrutura em 2 camadas:
-   - .mission-card-wrap → moldura EXTERNA: cantos QUADRADOS, rosa-lilás
-     clara. É esta camada que recebe a rotação de 15° e o efeito de "levantar
+   "Paredes curvas": as bordas esquerda/direita do miolo são arredondadas
+   com um raio bem maior na vertical do que na horizontal
+   (border-radius: 12% / 50%). Isso faz as laterais abaularem para fora,
+   como a parede de um cilindro visto de lado — enquanto topo e base do
+   card continuam retos. Somado à rotação de 15° do wrapper, dá a
+   sensação de um "poliedro oblíquo" (cilindro inclinado), mesmo o
+   elemento continuando, estruturalmente, um quadrilátero 2D comum.
+
+   Estrutura em 2 camadas (cores INVERTIDAS a pedido):
+   - .mission-card-wrap → moldura EXTERNA: cantos QUADRADOS, ROXO-ESCURO.
+     É esta camada que recebe a rotação de 15° e o efeito de "levantar
      e desentortar" no hover.
-   - .mission-card       → miolo INTERNO: cantos ARREDONDADOS, roxo-escuro,
-     texto branco, com uma imagem do instituto (a logo) por trás do
-     conteúdo, quase invisível — que fica mais visível conforme o mouse
-     se move sobre o card, dando a sensação de profundidade/parallax 3D.
+   - .mission-card       → miolo INTERNO: paredes curvas, LILÁS-CLARO,
+     texto em tinta escura (legível sobre o fundo claro), com uma imagem
+     do instituto (a logo) por trás do conteúdo, quase invisível — que
+     fica mais visível conforme o mouse se move sobre o card, dando a
+     sensação de profundidade/parallax 3D.
    -------------------------------------------------------------------------- */
 .mission-grid{
   display:flex;
@@ -303,14 +323,16 @@ section{padding:120px 6vw;position:relative;}
   perspective:1600px;
 }
 
-/* moldura externa (a "casca" do losango) */
+/* moldura externa (a "casca" do losango) — roxo-escuro, cantos quadrados */
 .mission-card-wrap{
+  /* tamanho fixo e IGUAL para as 3 cartas — não varia com o texto */
   width:300px;
+  height:360px;
   max-width:84vw;
-  padding:8px;                       /* espessura da moldura rosa-lilás */
-  background:var(--lilac-light);
-  border-radius:0;                   /* cantos QUADRADOS por fora, como pedido */
-  box-shadow:0 16px 32px rgba(34,24,48,.18);
+  padding:8px;                       /* espessura da moldura roxo-escura */
+  background:var(--wood);            /* borda escura roxa, como pedido */
+  border-radius:0;                   /* cantos QUADRADOS por fora */
+  box-shadow:0 16px 32px rgba(34,24,48,.22);
   /* inclinação de 15°, com a base fixa (transform-origin embaixo) para a
      carta "girar" a partir do próprio pé, e não do centro */
   transform:rotate(-15deg);
@@ -318,51 +340,57 @@ section{padding:120px 6vw;position:relative;}
   transition:transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease;
   perspective:1000px;                /* contexto 3D próprio para o miolo */
   cursor:pointer;
+  display:flex;                      /* miolo preenche 100% da moldura */
 }
 /* ao passar o mouse: a carta "desentorta" (volta a ficar reta), levanta
    um pouco e ganha uma sombra mais funda — sensação de estar em destaque */
 .mission-card-wrap:hover{
   transform:rotate(0deg) translateY(-12px);
-  box-shadow:0 30px 54px rgba(34,24,48,.32);
+  box-shadow:0 30px 54px rgba(34,24,48,.34);
 }
 
-/* miolo interno (o conteúdo em si) */
+/* miolo interno (o conteúdo em si) — lilás-claro, paredes curvas */
 .mission-card{
   position:relative;
+  flex:1;
   overflow:hidden;
-  min-height:300px;
-  padding:34px 26px;
-  background:var(--wood);            /* roxo escuro por dentro, como pedido */
-  border-radius:22px;                /* cantos ARREDONDADOS por dentro */
-  color:var(--cream);                /* texto em branco/creme */
+  padding:34px 24px;
+  background:var(--lilac-light);     /* interior lilás claro, como pedido */
+  /* raio horizontal pequeno + raio vertical grande = laterais curvas,
+     topo/base quase retos ("paredes de cilindro") */
+  border-radius:12% / 50%;
+  color:var(--ink);                  /* texto em tinta escura, legível no fundo claro */
+  display:flex;flex-direction:column;
   transform-style:preserve-3d;       /* necessário para o tilt 3D via JS */
   transition:transform .35s ease, box-shadow .35s ease;
   will-change:transform;
 }
-/* leve brilho na borda interna, reforçando a sensação de "carta 3D" */
+/* leve sombra interna na borda, reforçando a sensação de "parede curva" */
 .mission-card::after{
   content:"";
   position:absolute;inset:0;
   border-radius:inherit;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), inset 0 0 0 1px rgba(255,255,255,.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 18px rgba(107,63,148,.10);
   pointer-events:none;
 }
 
 /* imagem do instituto (logo), quase invisível, revelada no hover — dá a
-   sensação de "olhar para dentro" do card em 3D/parallax */
+   sensação de "olhar para dentro" do card em 3D/parallax. Uso
+   mix-blend-mode para a logo se integrar bem ao fundo claro. */
 .mission-card-img{
   position:absolute;inset:0;
   background-image:url('../images/favicon.svg');
   background-repeat:no-repeat;
   background-position:center 78%;
   background-size:58%;
-  opacity:.07;
+  opacity:.10;
+  mix-blend-mode:multiply;
   transform:scale(1) translateZ(0);
   transition:opacity .5s ease, transform .5s ease;
   pointer-events:none;
 }
 .mission-card-wrap:hover .mission-card-img{
-  opacity:.22;
+  opacity:.28;
   transform:scale(1.08);
 }
 
@@ -373,18 +401,19 @@ section{padding:120px 6vw;position:relative;}
   position:relative;z-index:1;
 }
 .mission-card .icon{font-size:26px;display:block;margin-bottom:16px;}
-.mission-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin-bottom:10px;color:var(--cream);}
-.mission-card p{font-size:14px;line-height:1.7;color:rgba(247,241,234,.78);}
+.mission-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin-bottom:10px;color:var(--wood-dark);}
+.mission-card p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);}
 
 /* no celular, sem espaço/jeito para inclinar cartas: elas ficam retas e
    empilhadas, mantendo a moldura e as cores, só sem o efeito 3D no toque */
 @media(max-width:760px){
   .mission-grid{flex-direction:column;align-items:center;gap:32px;padding:40px 6vw 56px;}
   .mission-card-wrap{
-    width:100%;max-width:420px;
+    width:100%;max-width:420px;height:320px;
     transform:none;
   }
   .mission-card-wrap:hover{transform:translateY(-6px);}
+  .mission-card{border-radius:8% / 14%;} /* curva mais discreta no celular */
 }
 
 .mission-grid.three-col{grid-template-columns:repeat(3,1fr);}

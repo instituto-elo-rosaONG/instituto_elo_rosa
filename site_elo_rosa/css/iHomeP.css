@@ -130,9 +130,6 @@ a{color:inherit;text-decoration:none;}
 }
 .hero-bg .fill{
   position:absolute;inset:0;
-  /* CONECTANDO O BACKGROUND: o arquivo real na pasta images é "hero.jpeg"
-     (conforme a estrutura de pastas do projeto) — antes estava apontando
-     para "hero.jpg", que não existe, por isso a imagem nunca aparecia. */
   background-image:url('../images/hero.jpeg');
   background-size:cover;background-position:center 38%;
   filter:saturate(0.62) brightness(0.85);
@@ -144,15 +141,10 @@ a{color:inherit;text-decoration:none;}
 .hero-inner{
   position:relative;z-index:2;
   width:100%;
-  /* "suba o texto": menos espaço embaixo empurra o bloco de texto para
-     cima dentro do herói (era 8vh) */
   padding:0 6vw 4.5vh;
 }
 .hero-copy{max-width:600px;}
 
-/* Regra base do "eyebrow" (rótulo pequeno em maiúsculas), usada em outras
-   seções da página (quem-somos, propósito, loja, CTA) — mantida aqui para
-   não quebrar essas seções, mesmo que o herói agora use o título grande. */
 .eyebrow{
   color:var(--pink-deep);font-size:15px;letter-spacing:.2em;text-transform:uppercase;
   font-weight:700;margin-bottom:18px;
@@ -161,35 +153,23 @@ a{color:inherit;text-decoration:none;}
 .eyebrow .mark{width:22px;height:22px;flex-shrink:0;}
 .eyebrow .mark img{width:100%;height:100%;object-fit:contain;}
 
-/* --------------------------------------------------------------------------
-   1.3a — TÍTULO GRANDE DO HERÓI (logo + "Instituto Elo Rosa")
-   Fica em cima do background, no topo do bloco de texto. Tamanho grande,
-   porém contido (não deve competir com a tagline/parágrafo abaixo).
-   -------------------------------------------------------------------------- */
 .hero-title-row{
   display:flex;align-items:center;gap:16px;
   margin-bottom:6px;
 }
 .hero-logo{
-  /* mesma hierarquia visual do título: tamanho relativo à fonte do título,
-     sem fundo/círculo, para não parecer um "ícone menor" ao lado do texto */
   width:1em;height:1em;
-  font-size:clamp(36px,6vw,64px);  /* acompanha o novo tamanho do .hero-title */
+  font-size:clamp(36px,6vw,64px);
   flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
 }
 .hero-logo img{width:100%;height:100%;object-fit:contain;}
 .hero-title{
-  /* título aumentado, a pedido — ainda contido, sem chegar ao extremo do
-     antigo h1 de tagline (que ia até 96px) */
   font-size:clamp(36px,6vw,64px);
   font-weight:600;line-height:1.08;letter-spacing:-.01em;
   color:var(--cream);
   text-shadow:0 4px 24px rgba(0,0,0,.35);
 }
-/* "Elo Rosa" ganha um tom rosa sutil dentro do título — "Instituto" segue
-   na cor padrão (creme), só o nome próprio muda de cor, discretamente
-   (rosa suave + sombra reduzida, para não competir com o resto do texto) */
 .hero-title-accent{
   color:var(--pink);
   opacity:.92;
@@ -199,9 +179,6 @@ a{color:inherit;text-decoration:none;}
   .hero-logo{font-size:clamp(28px,8vw,44px);}
 }
 
-/* tagline curta, logo abaixo do título grande (frase que já existia).
-   Recuo leve à direita, para indicar visualmente que é um "parágrafo"
-   subordinado ao título acima (não faz parte do título em si). */
 .hero-tagline{
   margin-top:10px;margin-left:14px;
   font-family:'Fraunces',serif;font-style:italic;font-weight:500;
@@ -210,8 +187,6 @@ a{color:inherit;text-decoration:none;}
   text-shadow:0 2px 12px rgba(0,0,0,.25);
 }
 
-/* parágrafo de descrição (mesmo estilo que já existia), com o mesmo
-   recuo leve à direita do tagline, reforçando a leitura em "parágrafos" */
 .hero-desc{
   margin-top:20px;margin-left:14px;
   font-size:15.5px;line-height:1.75;color:rgba(247,241,234,.82);
@@ -221,10 +196,8 @@ a{color:inherit;text-decoration:none;}
   display:inline-block;margin-top:28px;padding:13px 30px;
   background:var(--pink);color:#3A2028;border-radius:30px;
   font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
-  /* hover (escurecer) e clique (efeito de bolha) vêm da classe .fx-btn */
 }
 
-/* scroll indicator */
 .scroll-cue{
   position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
   z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;
@@ -256,16 +229,10 @@ a{color:inherit;text-decoration:none;}
   50%{transform:translateY(8px);opacity:1;}
 }
 
-/* --------------------------------------------------------------------------
-   1.4 — FAIXA "PEEK" (tira rosa logo abaixo do herói, com prévia da próxima seção)
-   -------------------------------------------------------------------------- */
 .peek{
   position:relative;z-index:2;
   background:var(--pink);
   color:#3A2028;
-  /* altura reduzida em 1/6 em relação ao valor original (14px → ~11.7px de
-     padding vertical), a pedido: a faixa fica mais fina, mantendo as
-     proporções internas dos elementos */
   padding:calc(14px * 5 / 6) 6vw;
   display:flex;justify-content:space-between;align-items:center;
 }
@@ -276,99 +243,57 @@ a{color:inherit;text-decoration:none;}
   font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   transition:background .2s;
 }
-/* aqui o hover fica escuro (roxo), diferente do padrão rosa do .fx-btn —
-   mantido de propósito, pois este botão já nasce escuro sobre o fundo rosa */
 .peek .peek-btn:hover{background:var(--wood-dark);}
 
-/* --------------------------------------------------------------------------
-   1.5 — ESTRUTURA GERAL DAS SEÇÕES (espaçamento padrão + cabeçalho de seção)
-   -------------------------------------------------------------------------- */
 section{padding:120px 6vw;position:relative;}
 .section-head{max-width:640px;margin-bottom:64px;}
 .section-head .eyebrow{color:var(--green);}
 .section-head h2{font-size:clamp(32px,4.5vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.01em;}
 .section-head p{margin-top:16px;color:var(--ink-soft);line-height:1.75;font-size:15px;max-width:480px;}
 
-/* --------------------------------------------------------------------------
-   1.6 — GRADE DE MISSÃO/VISÃO/PROPÓSITO ("quem somos")
-   Cada card é um "losango": um retângulo levemente inclinado (15°) que
-   nasce e termina na mesma linha de base — como cartas apoiadas numa mesa,
-   alinhadas por baixo (transform-origin: bottom center). As LARGURAS/
-   ALTURAS são fixas e IDÊNTICAS nos 3 cards (mesmo tamanho, sempre).
-
-   "Paredes curvas": as bordas esquerda/direita do miolo são arredondadas
-   com um raio bem maior na vertical do que na horizontal
-   (border-radius: 12% / 50%). Isso faz as laterais abaularem para fora,
-   como a parede de um cilindro visto de lado — enquanto topo e base do
-   card continuam retos. Somado à rotação de 15° do wrapper, dá a
-   sensação de um "poliedro oblíquo" (cilindro inclinado), mesmo o
-   elemento continuando, estruturalmente, um quadrilátero 2D comum.
-
-   Estrutura em 2 camadas (cores INVERTIDAS a pedido):
-   - .mission-card-wrap → moldura EXTERNA: cantos QUADRADOS, ROXO-ESCURO.
-     É esta camada que recebe a rotação de 15° e o efeito de "levantar
-     e desentortar" no hover.
-   - .mission-card       → miolo INTERNO: paredes curvas, LILÁS-CLARO,
-     texto em tinta escura (legível sobre o fundo claro), com uma imagem
-     do instituto (a logo) por trás do conteúdo, quase invisível — que
-     fica mais visível conforme o mouse se move sobre o card, dando a
-     sensação de profundidade/parallax 3D.
-   -------------------------------------------------------------------------- */
 .mission-grid{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  align-items:flex-end;      /* mantém todas as cartas apoiadas na MESMA base */
+  align-items:flex-end;
   gap:70px 44px;
   padding:56px 6vw 70px;
-  /* "perspective" no container-pai ajuda o efeito 3D a parecer mais real
-     quando o navegador calcula a profundidade dos cards inclinados */
   perspective:1600px;
 }
 
-/* moldura externa (a "casca" do losango) — roxo-escuro, cantos quadrados */
 .mission-card-wrap{
-  /* tamanho fixo e IGUAL para as 3 cartas — não varia com o texto */
   width:300px;
   height:360px;
   max-width:84vw;
-  padding:8px;                       /* espessura da moldura roxo-escura */
-  background:var(--wood);            /* borda escura roxa, como pedido */
-  border-radius:0;                   /* cantos QUADRADOS por fora */
+  padding:8px;
+  background:var(--wood);
+  border-radius:0;
   box-shadow:0 16px 32px rgba(34,24,48,.22);
-  /* inclinação de 15°, com a base fixa (transform-origin embaixo) para a
-     carta "girar" a partir do próprio pé, e não do centro */
   transform:rotate(-15deg);
   transform-origin:bottom center;
   transition:transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease;
-  perspective:1000px;                /* contexto 3D próprio para o miolo */
+  perspective:1000px;
   cursor:pointer;
-  display:flex;                      /* miolo preenche 100% da moldura */
+  display:flex;
 }
-/* ao passar o mouse: a carta "desentorta" (volta a ficar reta), levanta
-   um pouco e ganha uma sombra mais funda — sensação de estar em destaque */
 .mission-card-wrap:hover{
   transform:rotate(0deg) translateY(-12px);
   box-shadow:0 30px 54px rgba(34,24,48,.34);
 }
 
-/* miolo interno (o conteúdo em si) — lilás-claro, paredes curvas */
 .mission-card{
   position:relative;
   flex:1;
   overflow:hidden;
   padding:34px 24px;
-  background:var(--lilac-light);     /* interior lilás claro, como pedido */
-  /* raio horizontal pequeno + raio vertical grande = laterais curvas,
-     topo/base quase retos ("paredes de cilindro") */
+  background:var(--lilac-light);
   border-radius:12% / 50%;
-  color:var(--ink);                  /* texto em tinta escura, legível no fundo claro */
+  color:var(--ink);
   display:flex;flex-direction:column;
-  transform-style:preserve-3d;       /* necessário para o tilt 3D via JS */
+  transform-style:preserve-3d;
   transition:transform .35s ease, box-shadow .35s ease;
   will-change:transform;
 }
-/* leve sombra interna na borda, reforçando a sensação de "parede curva" */
 .mission-card::after{
   content:"";
   position:absolute;inset:0;
@@ -377,9 +302,6 @@ section{padding:120px 6vw;position:relative;}
   pointer-events:none;
 }
 
-/* imagem do instituto (logo), quase invisível, revelada no hover — dá a
-   sensação de "olhar para dentro" do card em 3D/parallax. Uso
-   mix-blend-mode para a logo se integrar bem ao fundo claro. */
 .mission-card-img{
   position:absolute;inset:0;
   background-image:url('../images/favicon.svg');
@@ -397,7 +319,6 @@ section{padding:120px 6vw;position:relative;}
   transform:scale(1.08);
 }
 
-/* conteúdo textual sempre acima da imagem de fundo (z-index) */
 .mission-card .icon,
 .mission-card h3,
 .mission-card p{
@@ -407,8 +328,6 @@ section{padding:120px 6vw;position:relative;}
 .mission-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin-bottom:10px;color:var(--wood-dark);}
 .mission-card p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);}
 
-/* no celular, sem espaço/jeito para inclinar cartas: elas ficam retas e
-   empilhadas, mantendo a moldura e as cores, só sem o efeito 3D no toque */
 @media(max-width:760px){
   .mission-grid{flex-direction:column;align-items:center;gap:32px;padding:40px 6vw 56px;}
   .mission-card-wrap{
@@ -416,16 +335,13 @@ section{padding:120px 6vw;position:relative;}
     transform:none;
   }
   .mission-card-wrap:hover{transform:translateY(-6px);}
-  .mission-card{border-radius:8% / 14%;} /* curva mais discreta no celular */
+  .mission-card{border-radius:8% / 14%;}
 }
 
 .mission-grid.three-col{grid-template-columns:repeat(3,1fr);}
 @media(max-width:900px){ .mission-grid.three-col{grid-template-columns:repeat(2,1fr);} }
 @media(max-width:600px){ .mission-grid.three-col{grid-template-columns:1fr;} }
 
-/* --------------------------------------------------------------------------
-   1.7a — LISTA DE VALORES/TAGS (reutilizável, ex: lista de projetos)
-   -------------------------------------------------------------------------- */
 .values{background:var(--cream-deep);}
 .values-list{
   display:flex;flex-wrap:wrap;gap:12px;
@@ -454,10 +370,6 @@ section{padding:120px 6vw;position:relative;}
 .story-content h2{font-size:clamp(28px,4.5vw,44px);font-weight:500;line-height:1.3;color:var(--ink);}
 .story-content h2 em{color:var(--purple-accent);font-style:italic;}
 
-/* --------------------------------------------------------------------------
-   1.7b — CARDS DE APOIADORES/EVENTOS (não usados na home atual, mas mantidos
-   caso a seção volte a ser exibida futuramente)
-   -------------------------------------------------------------------------- */
 .supporters{background:var(--cream-deep);}
 .support-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;
@@ -475,9 +387,6 @@ section{padding:120px 6vw;position:relative;}
 .support-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
 .support-card .event-date{font-size:12px;color:var(--pink-deep);margin-top:auto;letter-spacing:.04em;}
 
-/* --------------------------------------------------------------------------
-   1.7c — SEÇÃO DE CHAMADA FINAL (CTA) "seja o elo de alguém"
-   -------------------------------------------------------------------------- */
 .cta{
   text-align:center;padding:140px 6vw;
   background:linear-gradient(180deg, var(--wood) 0%, var(--wood-dark) 100%);
@@ -494,15 +403,6 @@ section{padding:120px 6vw;position:relative;}
 }
 .cta .btn:hover{background:var(--pink-deep);}
 
-/* --------------------------------------------------------------------------
-   1.8 — RODAPÉ (FOOTER)
-   Estrutura em GRID de 3 colunas:
-   [ coluna esquerda (reservada) ] [ coluna central (flor) ] [ coluna direita (contatos + políticas) ]
-   Proporção pedida "0.75/3 | X | 0.75/3" equivale, simplificada, a 1fr / 2fr / 1fr
-   -------------------------------------------------------------------------- */
-
-/* Contêiner externo do rodapé: define o fundo escuro e o espaçamento geral.
-   overflow:visible garante que NENHUMA pétala da flor seja cortada nas bordas. */
 footer{
   padding:64px 6vw 28px;
   background:var(--wood-dark);
@@ -510,12 +410,9 @@ footer{
   overflow:visible;
 }
 
-/* Grid principal com as 3 colunas descritas acima.
-   As divisórias verticais (linhas finas) ficam entre as colunas, criando
-   visualmente as "3 seções": ícones | logo | políticas. */
 .footer-grid{
   display:grid;
-  grid-template-columns: 1fr 2fr 1fr;  /* esquerda 25% | centro 50% | direita 25% (proporção 0.75|1.5|0.75) */
+  grid-template-columns: 1fr 2fr 1fr;
   align-items:center;
   gap:24px;
   max-width:1200px;
@@ -523,7 +420,6 @@ footer{
   overflow:visible;
 }
 
-/* Linha vertical divisória — usada duas vezes (corte esquerdo e corte direito) */
 .footer-col-left,
 .footer-col-right{
   position:relative;
@@ -538,26 +434,24 @@ footer{
   background:rgba(247,241,234,.14);
   transform:translateY(-50%);
 }
-.footer-col-left::after{ right:-12px; }   /* corte entre coluna esquerda e central */
-.footer-col-right::before{ left:-12px; } /* corte entre coluna central e direita */
+.footer-col-left::after{ right:-12px; }
+.footer-col-right::before{ left:-12px; }
 
-/* COLUNA ESQUERDA — ícones de contato, empilhados de cima para baixo */
 .footer-col-left{
   display:flex;
   justify-content:center;
 }
 
-/* COLUNA CENTRAL — logo do instituto + "Sponsored by" embaixo dela */
 .footer-col-center{
   display:flex;
-  flex-direction:column;         /* logo em cima, sponsor embaixo */
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:18px;
   overflow:visible;
 }
 .footer-logo{
-  width:180px;            /* tamanho da logo no rodapé */
+  width:180px;
   max-width:40vw;
   opacity:1;
 }
@@ -565,39 +459,31 @@ footer{
   width:100%;
   height:auto;
   display:block;
-  border-radius:50%;      /* a logo original é circular (ver .nav .word .mark) */
+  border-radius:50%;
 }
 
-/* COLUNA DIREITA — nome do instituto + ícones de contato + links institucionais */
 .footer-col-right{
   display:flex;
   flex-direction:column;
-  align-items:flex-end;   /* alinha tudo à direita da coluna */
+  align-items:flex-end;
   gap:16px;
   text-align:right;
 }
 
-/* Nome "Instituto Elo Rosa" em destaque, branco vivo, no topo da coluna */
 .footer-brand-name{
   font-family:'Fraunces',serif;
   font-weight:700;
   font-size:20px;
-  color:#FFFFFF;         /* branco vivo, conforme solicitado */
+  color:#FFFFFF;
   letter-spacing:-0.01em;
   line-height:1.2;
 }
 
-/* --------------------------------------------------------------------------
-   1.8a — COLUNA DE ÍCONES DE CONTATO/REDES SOCIAIS
-   Ficam empilhados de cima para baixo, à esquerda, com espaçamento pequeno
-   entre eles. Agora usando imagens PRÓPRIAS (PNG), cada uma já com sua cor
-   definida no próprio arquivo — por isso não usamos mais "fill" de SVG.
-   -------------------------------------------------------------------------- */
 .footer-social-col{
   display:flex;
-  flex-direction:column;   /* empilhados de cima para baixo, conforme pedido */
+  flex-direction:column;
   align-items:center;
-  gap:14px;                /* espaçamento pequeno entre os ícones */
+  gap:14px;
   list-style:none;
 }
 .footer-social-col a,
@@ -607,7 +493,7 @@ footer{
   justify-content:center;
   width:34px;height:34px;
   border-radius:50%;
-  background:rgba(255,255,255,.06);  /* fundo sutil para destacar o ícone do roxo escuro */
+  background:rgba(255,255,255,.06);
   border:none;
   cursor:pointer;
   transition:background .2s, transform .2s;
@@ -617,8 +503,6 @@ footer{
   background:rgba(255,255,255,.14);
   transform:translateY(-2px);
 }
-/* ícones aumentados em 50% (de 17px para 26px), como pedido para "os
-   outros" ícones (todos, exceto o do zaluvin) */
 .footer-social-col img{
   width:26px;
   height:26px;
@@ -627,8 +511,6 @@ footer{
 }
 .footer-social-col li{ position:relative; }
 
-/* Pequeno aviso visual (ex: "copiado!") ao copiar e-mail/telefone.
-   Como a coluna agora fica à esquerda, o aviso aparece ao lado direito do ícone. */
 .footer-copy-hint{
   position:absolute;
   left:44px;
@@ -643,10 +525,6 @@ footer{
 }
 .footer-copy-hint.show{opacity:1;}
 
-/* --------------------------------------------------------------------------
-   1.8b — LISTA DE LINKS INSTITUCIONAIS (políticas)
-   Transparência / Trabalhe conosco / Políticas de privacidade / Regulamento
-   -------------------------------------------------------------------------- */
 .footer-policies{
   display:flex;
   flex-direction:column;
@@ -668,56 +546,48 @@ footer{
    centralizado. Ícone = imagem "zaluvin.png" na cor ORIGINAL do arquivo
    (sem tingir), linkando para o Instagram do patrocinador.
 
-   Animação: ao passar o mouse, a caveira "vira de lado" em 3D, como se
-   fosse um livro sendo puxado/inclinado numa estante — o giro parte da
-   borda esquerda da imagem (transform-origin: left center), não do centro,
-   simulando a "lombada" do livro que fica presa enquanto a capa vira.
+   Animação (AJUSTADA): ao passar o mouse, o ícone gira sobre 2 eixos (X e Y)
+   em 18° cada, com o ponto fixo (transform-origin) no CANTO INFERIOR
+   ESQUERDO da imagem — como um livro sendo retirado da estante por alguém
+   posicionado à direita, um pouco abaixo dele. A base (canto inferior
+   esquerdo) permanece presa enquanto o ícone "tomba" nas duas direções.
    -------------------------------------------------------------------------- */
 .footer-sponsor{
   display:flex;align-items:center;justify-content:center;gap:8px;
   font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
   color:rgba(247,241,234,.45);
-  /* profundidade 3D para o efeito de "livro virando" parecer real */
   perspective:400px;
 }
 .footer-sponsor-icon{
-  /* aumentado em 120% (de 20px para 44px), como pedido especificamente
-     para o ícone do zaluvin */
   width:44px;height:44px;flex-shrink:0;
   display:inline-flex;align-items:center;justify-content:center;
   transform-style:preserve-3d;
 }
 .footer-sponsor-icon img{
   width:100%;height:100%;object-fit:contain;
-  /* gira a partir da borda esquerda — como a lombada de um livro na estante */
-  transform-origin:left center;
-  transform:rotateY(0deg);
+  /* gira a partir do canto inferior esquerdo — base fixa, como a quina de
+     um livro sendo puxado por alguém à direita, abaixo do ícone */
+  transform-origin:left bottom;
+  transform:rotateX(0deg) rotateY(0deg);
   transition:transform .5s cubic-bezier(.22,1,.36,1), filter .3s ease;
   will-change:transform;
 }
-/* "seleciona" a caveira como um livro: inclina para fora em 3D e ganha
-   uma sombra sutil, como se estivesse saindo da prateleira */
+/* "seleciona" a caveira como um livro: inclina 18° em cada um dos 2 eixos
+   (X e Y), presa pelo canto inferior esquerdo, e ganha uma sombra sutil,
+   como se estivesse saindo da prateleira */
 .footer-sponsor-icon:hover img{
-  transform:rotateY(-32deg) translateX(2px);
+  transform:rotateX(18deg) rotateY(-18deg);
   filter:drop-shadow(4px 6px 10px rgba(0,0,0,.35));
 }
 
-/* --------------------------------------------------------------------------
-   1.8d — EFEITO "LIVRO NA ESTANTE" (eixo X) — usado em todos os ícones do
-   rodapé (YouTube, WhatsApp, Instagram, Gmail, telefone, Pix) e no botão
-   flutuante. Ao passar o mouse, o ícone gira 18° em torno do eixo X, com o
-   ponto fixo (transform-origin) no CANTO INFERIOR ESQUERDO da imagem —
-   como se fosse um livro sendo puxado/escolhido numa estante: a base
-   esquerda fica presa, e o ícone "tomba" para baixo a partir dali.
-   -------------------------------------------------------------------------- */
 .footer-social-col a,
 .footer-social-col button,
 .contact-fab{
-  perspective:300px;   /* profundidade 3D para o giro parecer real */
+  perspective:300px;
 }
 .icon-pop img,
 .contact-fab img{
-  transform-origin:left bottom;   /* ponto 0 = canto inferior esquerdo */
+  transform-origin:left bottom;
   transform:rotateX(0deg);
   transition:transform .45s cubic-bezier(.22,1,.36,1), filter .3s ease;
   will-change:transform;
@@ -728,7 +598,6 @@ footer{
   filter:drop-shadow(0 5px 8px rgba(0,0,0,.3));
 }
 
-/* Linha inferior do rodapé: copyright à esquerda, slogan à direita */
 .footer-bottom{
   width:100%;
   max-width:1200px;
@@ -737,16 +606,15 @@ footer{
   font-size:12px;color:rgba(247,241,234,.5);
 }
 
-/* Ajustes para telas pequenas (celulares): empilha as 3 colunas verticalmente */
 @media(max-width:900px){
   .footer-grid{
-    grid-template-columns:1fr;   /* uma coluna só */
+    grid-template-columns:1fr;
     justify-items:center;
     text-align:center;
     gap:32px;
   }
   .footer-col-left::after,
-  .footer-col-right::before{ display:none; }  /* linhas divisórias somem no mobile (empilhado) */
+  .footer-col-right::before{ display:none; }
   .footer-col-right{align-items:center;text-align:center;}
   .footer-social-col{flex-direction:row;flex-wrap:wrap;justify-content:center;}
   .footer-copy-hint{ left:50%; top:100%; transform:translateX(-50%); margin-top:4px; }
@@ -755,21 +623,13 @@ footer{
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
 }
 
-/* --------------------------------------------------------------------------
-   1.9 — ANIMAÇÃO "REVEAL" (elementos aparecem suavemente ao entrar na tela)
-   A classe .in é adicionada via JavaScript (script.js) usando IntersectionObserver
-   -------------------------------------------------------------------------- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 
-/* Respeita a preferência do usuário por menos movimento/animação (acessibilidade) */
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
 }
 
-/* --------------------------------------------------------------------------
-   1.10 — AJUSTES RESPONSIVOS GERAIS (telas de celular)
-   -------------------------------------------------------------------------- */
 @media(max-width:760px){
   section{padding:80px 6vw;}
   .hero{height:82vh;}
@@ -780,10 +640,6 @@ footer{
    Adicionado por cima do Módulo 1, sem remover nada do que já existia.
    ########################################################################## */
 
-/* --------------------------------------------------------------------------
-   2.1 — Ajustes na .nav já existente: agora com botão hambúrguer à esquerda
-   e links centralizados. A faixa recebe uma transição para poder "sumir".
-   -------------------------------------------------------------------------- */
 .nav{
   transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .6s ease;
   gap:14px;
@@ -799,10 +655,6 @@ footer{
 }
 .nav .word{margin-left:4px;}
 
-/* --------------------------------------------------------------------------
-   2.2 — Botão hambúrguer (3 barras), usado tanto na faixa quanto na pastilha.
-   Anima virando um "X" quando o menu está aberto.
-   -------------------------------------------------------------------------- */
 .menu-btn{
   width:34px;height:34px;flex-shrink:0;
   display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
@@ -819,11 +671,6 @@ footer{
 .menu-btn.is-open span:nth-child(2){opacity:0;width:0;}
 .menu-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-/* --------------------------------------------------------------------------
-   2.3 — Pastilha (quadrado de bordas redondas) fixa no canto superior
-   esquerdo. Some enquanto a faixa está visível; aparece quando a faixa some.
-   Usa a mesma textura granulada + gradiente roxo da faixa.
-   -------------------------------------------------------------------------- */
 .nav-pill{
   position:fixed;top:12px;left:16px;z-index:55;
   width:46px;height:46px;border-radius:16px;
@@ -838,9 +685,6 @@ footer{
 .nav-pill.show{opacity:1;transform:scale(1);pointer-events:auto;}
 .nav-pill .menu-btn{width:30px;height:30px;}
 
-/* --------------------------------------------------------------------------
-   2.4 — Overlay escuro atrás da gaveta/cortina do menu
-   -------------------------------------------------------------------------- */
 .menu-overlay{
   position:fixed;inset:0;z-index:56;
   background:rgba(22,15,32,.55);
@@ -849,11 +693,6 @@ footer{
 }
 .menu-overlay.show{opacity:1;pointer-events:auto;}
 
-/* --------------------------------------------------------------------------
-   2.5 — Gaveta / cortina do menu, lado esquerdo.
-   Desktop: painel médio (380px), do tamanho de "uma cortina", não a tela
-   inteira. Mobile: peça pequena ancorada no canto superior esquerdo.
-   -------------------------------------------------------------------------- */
 .menu-drawer{
   position:fixed;top:0;left:0;bottom:0;z-index:57;
   width:380px;max-width:82vw;
@@ -879,13 +718,6 @@ footer{
 }
 .menu-drawer-links a:hover{color:var(--pink);padding-left:10px;}
 
-/* --------------------------------------------------------------------------
-   2.6 — CLASSE COMPARTILHADA ".fx-btn": dá o mesmo efeito visual a qualquer
-   botão rosa do site — usada no "Descobrir" (faixa), "fazer parte" (herói)
-   e "eventos" (faixa peek). Efeito: ao passar o mouse, só ESCURECE (sem
-   mudar de tamanho); ao CLICAR, faz uma animação suave de "bolha" (cresce -
-   diminui - volta ao normal), sem nunca sumir da tela.
-   -------------------------------------------------------------------------- */
 .fx-btn{
   cursor:pointer;
   transform:scale(1);
@@ -906,12 +738,6 @@ footer{
   100%{transform:scale(1);}
 }
 
-/* --------------------------------------------------------------------------
-   2.6a — BOTÃO "DESCOBRIR", canto superior direito da faixa.
-   Rosa com texto roxo escuro (mesma cor do fundo da faixa), formato cilindro
-   (bem arredondado nas pontas, não uma pílula fina nem um quadrado). Fica
-   encostado dentro do fundo da faixa. O efeito de hover/clique vem de .fx-btn.
-   -------------------------------------------------------------------------- */
 .discover-btn{
   margin-left:auto;
   display:inline-flex;align-items:center;justify-content:center;
@@ -919,18 +745,13 @@ footer{
   color:var(--wood-dark);
   font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;
   padding:10px 26px;
-  border-radius:22px;              /* arredondado moderado, formato cilindro */
+  border-radius:22px;
   white-space:nowrap;
 }
 @media(max-width:760px){
   .discover-btn{padding:8px 18px;font-size:11.5px;}
 }
 
-/* --------------------------------------------------------------------------
-   2.7 — Efeito "bolha" no botão de menu (hambúrguer), na faixa e na pastilha.
-   Ao passar o mouse: efeito inverso ao do botão Descobrir — diminui-cresce-
-   volta — de forma suave, sem nunca sumir.
-   -------------------------------------------------------------------------- */
 .menu-btn{
   cursor:pointer;
   transform:scale(1);
@@ -948,8 +769,6 @@ footer{
   100%{transform:scale(1);}
 }
 
-/* mobile: a gaveta vira uma peça pequena, ancorada no canto sup. esquerdo,
-   em vez de ocupar a tela inteira de cima a baixo */
 @media(max-width:760px){
   .menu-drawer{
     top:64px;left:12px;bottom:auto;

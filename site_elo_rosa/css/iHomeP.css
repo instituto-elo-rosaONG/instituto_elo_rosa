@@ -133,7 +133,7 @@ a{color:inherit;text-decoration:none;}
   /* CONECTANDO O BACKGROUND: o arquivo real na pasta images é "hero.jpeg"
      (conforme a estrutura de pastas do projeto) — antes estava apontando
      para "hero.jpg", que não existe, por isso a imagem nunca aparecia. */
-  background-image:url('site_elo_rosa/images/hero.jpeg');
+  background-image:url('../images/hero.jpeg');
   background-size:cover;background-position:center 38%;
   filter:saturate(0.62) brightness(0.85);
 }
@@ -382,7 +382,7 @@ section{padding:120px 6vw;position:relative;}
    mix-blend-mode para a logo se integrar bem ao fundo claro. */
 .mission-card-img{
   position:absolute;inset:0;
-  background-image:url('site_elo_rosa/images/favicon.svg');
+  background-image:url('../images/favicon.svg');
   background-repeat:no-repeat;
   background-position:center 78%;
   background-size:58%;

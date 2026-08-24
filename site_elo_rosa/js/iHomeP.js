@@ -191,28 +191,36 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ------------------------------------------------------------------------
-     E) CARTAS 3D/PARALLAX — Missão/Visão/Propósito
-        Ao mover o mouse sobre a carta, o miolo (.mission-card) inclina em
-        3D acompanhando a posição do cursor (efeito "tilt"), como se a
-        pessoa estivesse olhando o card de ângulos diferentes. Some ao tirar
-        o mouse. Desativado em telas de toque (sem "hover" disponível).
+     E) CARTAS "TIRAR O LIVRO DA ESTANTE" — Missão/Visão/Propósito
+        Ao passar o mouse: a carta gira 17° em torno do eixo Y, a partir da
+        borda esquerda (como um livro sendo puxado de uma prateleira — mesmo
+        espírito do ícone do zaluvin no rodapé). Enquanto o mouse se move
+        sobre a carta, esse giro-base de 17° ainda reage sutilmente à
+        posição do cursor, para dar profundidade extra. Desativado em telas
+        de toque (sem "hover" disponível).
      ------------------------------------------------------------------------ */
   var supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
   if (supportsHover) {
     var tiltWraps = document.querySelectorAll('.mission-card-wrap');
+    var BOOK_TILT = 17; // graus da inclinação-base "livro saindo da estante"
+
     tiltWraps.forEach(function (wrap) {
       var card = wrap.querySelector('[data-tilt-card]');
       if (!card) return;
 
+      // o giro nasce a partir da borda esquerda, como a lombada do livro
+      card.style.transformOrigin = 'left center';
+
+      wrap.addEventListener('mouseenter', function () {
+        card.style.transform = 'rotateY(-' + BOOK_TILT + 'deg)';
+      });
+
       wrap.addEventListener('mousemove', function (e) {
         var rect = wrap.getBoundingClientRect();
-        var px = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 a 0.5
-        var py = (e.clientY - rect.top) / rect.height - 0.5;
-        var maxTilt = 14; // graus máximos de inclinação 3D
-        var rotateY = px * maxTilt;
-        var rotateX = -py * maxTilt;
+        var py = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 a 0.5
+        var extraTiltX = -py * 8; // pequena variação vertical ao mover o mouse
         card.style.transform =
-          'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateZ(18px)';
+          'rotateY(-' + BOOK_TILT + 'deg) rotateX(' + extraTiltX + 'deg) translateZ(14px)';
       });
 
       wrap.addEventListener('mouseleave', function () {

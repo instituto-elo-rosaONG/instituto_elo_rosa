@@ -665,39 +665,41 @@ footer{
 
 /* --------------------------------------------------------------------------
    1.8c — "SPONSORED BY" — na base da peça central (embaixo da logo),
-   centralizado. Ícone = imagem "zaluvin.png", tingida de vermelho pastel
-   suave via CSS mask (assim controlamos a cor exata sem depender da cor
-   original do arquivo), linkando para o Instagram do patrocinador.
+   centralizado. Ícone = imagem "zaluvin.png" na cor ORIGINAL do arquivo
+   (sem tingir), linkando para o Instagram do patrocinador.
+
+   Animação: ao passar o mouse, a caveira "vira de lado" em 3D, como se
+   fosse um livro sendo puxado/inclinado numa estante — o giro parte da
+   borda esquerda da imagem (transform-origin: left center), não do centro,
+   simulando a "lombada" do livro que fica presa enquanto a capa vira.
    -------------------------------------------------------------------------- */
 .footer-sponsor{
   display:flex;align-items:center;justify-content:center;gap:8px;
   font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
   color:rgba(247,241,234,.45);
+  /* profundidade 3D para o efeito de "livro virando" parecer real */
+  perspective:400px;
 }
 .footer-sponsor-icon{
   /* aumentado em 120% (de 20px para 44px), como pedido especificamente
      para o ícone do zaluvin */
   width:44px;height:44px;flex-shrink:0;
-  display:inline-block;
-  /* vermelho pastel suave, aplicado como cor sólida através da máscara */
-  background-color:#E9A6A0;
-  -webkit-mask-image:url('../images/zaluvin.png');
-  mask-image:url('../images/zaluvin.png');
-  -webkit-mask-repeat:no-repeat;
-  mask-repeat:no-repeat;
-  -webkit-mask-position:center;
-  mask-position:center;
-  -webkit-mask-size:contain;
-  mask-size:contain;
-  transform:scale(1);
-  transition:background-color .25s ease;
+  display:inline-flex;align-items:center;justify-content:center;
+  transform-style:preserve-3d;
+}
+.footer-sponsor-icon img{
+  width:100%;height:100%;object-fit:contain;
+  /* gira a partir da borda esquerda — como a lombada de um livro na estante */
+  transform-origin:left center;
+  transform:rotateY(0deg);
+  transition:transform .5s cubic-bezier(.22,1,.36,1), filter .3s ease;
   will-change:transform;
 }
-/* efeito do zaluvin: CRESCE → diminui → volta (o "inverso" dos outros
-   ícones, que fazem diminui → cresce → volta) */
-.footer-sponsor-icon:hover{
-  animation:bubblePop .85s cubic-bezier(.33,1,.68,1) forwards;
-  background-color:#F0BDB8;  /* vermelho pastel um pouco mais claro no hover */
+/* "seleciona" a caveira como um livro: inclina para fora em 3D e ganha
+   uma sombra sutil, como se estivesse saindo da prateleira */
+.footer-sponsor-icon:hover img{
+  transform:rotateY(-32deg) translateX(2px);
+  filter:drop-shadow(4px 6px 10px rgba(0,0,0,.35));
 }
 
 /* --------------------------------------------------------------------------

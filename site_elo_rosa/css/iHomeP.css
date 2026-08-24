@@ -143,7 +143,7 @@ a{color:inherit;text-decoration:none;}
   width:100%;
   padding:0 6vw 4.5vh;
 }
-.hero-copy{max-width:600px;}
+.hero-copy{max-width:680px;}
 
 .eyebrow{
   color:var(--pink-deep);font-size:15px;letter-spacing:.2em;text-transform:uppercase;
@@ -156,27 +156,33 @@ a{color:inherit;text-decoration:none;}
 .hero-title-row{
   display:flex;align-items:center;gap:16px;
   margin-bottom:6px;
+  /* hierarquia: o título nasce mais à esquerda; a logo fica depois, à
+     direita dele — ordem no HTML é título -> logo */
+  justify-content:flex-start;
 }
 .hero-logo{
   width:1em;height:1em;
-  font-size:clamp(36px,6vw,64px);
+  font-size:clamp(30px,4.6vw,48px);
   flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
 }
 .hero-logo img{width:100%;height:100%;object-fit:contain;}
 .hero-title{
-  font-size:clamp(36px,6vw,64px);
+  /* fonte um pouco menor que antes para caber numa única linha reta no
+     desktop, junto com a logo ao lado */
+  font-size:clamp(28px,4.4vw,48px);
   font-weight:600;line-height:1.08;letter-spacing:-.01em;
-  color:var(--cream);
-  text-shadow:0 4px 24px rgba(0,0,0,.35);
-}
-.hero-title-accent{
+  /* nome inteiro do instituto em rosa */
   color:var(--pink);
-  opacity:.92;
-  text-shadow:0 2px 14px rgba(0,0,0,.22);
+  text-shadow:0 4px 24px rgba(0,0,0,.35);
+  white-space:nowrap;
+}
+@media(max-width:900px){
+  .hero-title{white-space:normal;}
 }
 @media(max-width:760px){
-  .hero-logo{font-size:clamp(28px,8vw,44px);}
+  .hero-logo{font-size:clamp(26px,7vw,40px);}
+  .hero-title{font-size:clamp(26px,7vw,40px);}
 }
 
 .hero-tagline{
@@ -556,28 +562,24 @@ footer{
   display:flex;align-items:center;justify-content:center;gap:8px;
   font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
   color:rgba(247,241,234,.45);
-  perspective:400px;
 }
 .footer-sponsor-icon{
   width:44px;height:44px;flex-shrink:0;
   display:inline-flex;align-items:center;justify-content:center;
-  transform-style:preserve-3d;
 }
 .footer-sponsor-icon img{
   width:100%;height:100%;object-fit:contain;
-  /* gira a partir do canto inferior esquerdo — base fixa, como a quina de
-     um livro sendo puxado por alguém à direita, abaixo do ícone */
-  transform-origin:left bottom;
-  transform:rotateX(0deg) rotateY(0deg);
+  /* movimento 100% bidimensional: só translateX (horizontal) e translateY
+     (vertical) — sem eixo Z, sem rotação 3D */
+  transform:translateX(0) translateY(0);
   transition:transform .5s cubic-bezier(.22,1,.36,1), filter .3s ease;
   will-change:transform;
 }
-/* "seleciona" a caveira como um livro: inclina 18° em cada um dos 2 eixos
-   (X e Y), presa pelo canto inferior esquerdo, e ganha uma sombra sutil,
-   como se estivesse saindo da prateleira */
+/* ao passar o mouse: desliza sutilmente para a direita (X) e para cima (Y),
+   como se estivesse sendo puxado da prateleira, mas em 2D puro */
 .footer-sponsor-icon:hover img{
-  transform:rotateX(18deg) rotateY(-18deg);
-  filter:drop-shadow(4px 6px 10px rgba(0,0,0,.35));
+  transform:translateX(4px) translateY(-6px);
+  filter:drop-shadow(2px 6px 8px rgba(0,0,0,.3));
 }
 
 .footer-social-col a,

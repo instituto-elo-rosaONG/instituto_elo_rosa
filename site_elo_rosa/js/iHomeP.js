@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ------------------------------------------------------------------------
-     D) COPIAR E-MAIL / TELEFONE DO RODAPÉ
+     D) COPIAR E-MAIL / TELEFONE / PIX DO RODAPÉ
      ------------------------------------------------------------------------ */
   var emailLink = document.querySelector('.js-copy-email');
   var emailHint = document.getElementById('emailCopyHint');
@@ -176,6 +176,17 @@ document.addEventListener('DOMContentLoaded', function () {
       if (navigator.clipboard) navigator.clipboard.writeText(text);
       phoneHint.classList.add('show');
       setTimeout(function () { phoneHint.classList.remove('show'); }, 1600);
+    });
+  }
+
+  var pixBtn = document.querySelector('.js-copy-pix');
+  var pixHint = document.getElementById('pixCopyHint');
+  if (pixBtn && pixHint) {
+    pixBtn.addEventListener('click', function () {
+      var text = pixBtn.getAttribute('data-copy');
+      if (navigator.clipboard) navigator.clipboard.writeText(text);
+      pixHint.classList.add('show');
+      setTimeout(function () { pixHint.classList.remove('show'); }, 1600);
     });
   }
 

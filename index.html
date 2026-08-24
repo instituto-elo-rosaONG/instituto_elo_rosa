@@ -217,7 +217,7 @@
         <!-- Instagram → página do perfil. Abre em nova aba.
              Substituir o href pelo link definitivo. -->
         <li>
-          <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="icon-pop">
+          <a href="https://www.instagram.com/institutoelorosa/" target="_blank" rel="noopener" aria-label="Instagram" class="icon-pop">
             <img src="site_elo_rosa/images/instagran.png" alt="Instagram">
           </a>
         </li>
@@ -239,12 +239,13 @@
           <span class="footer-copy-hint" id="phoneCopyHint">copiado!</span>
         </li>
 
-        <!-- Pix → página própria a ser definida. Abre em nova aba (destino
-             externo/futuro). -->
+        <!-- Pix → copia a chave (CNPJ) para a área de transferência, igual
+             e-mail/telefone -->
         <li>
-          <a href="#" target="_blank" rel="noopener" aria-label="Pix" class="icon-pop">
+          <button type="button" class="js-copy-pix icon-pop" data-copy="67.667.330/0001-06" aria-label="Copiar chave Pix">
             <img src="site_elo_rosa/images/pix.png" alt="Pix">
-          </a>
+          </button>
+          <span class="footer-copy-hint" id="pixCopyHint">copiado!</span>
         </li>
 
       </ul>
@@ -256,14 +257,18 @@
         <img src="site_elo_rosa/images/favicon.svg" alt="Logo do Instituto Elo Rosa">
       </div>
 
-      <!-- "Sponsored by" — caveira (zaluvin.png) tingida em vermelho pastel via
-           CSS mask, na base da peça central, centralizada -->
+      <!-- "Sponsored by" — caveira (zaluvin.png) na cor ORIGINAL do arquivo
+           (sem tingir), na base da peça central, centralizada. Ao passar o
+           mouse, ela "vira de lado" em 3D, como um livro sendo puxado numa
+           estante (gira a partir da borda esquerda, não do centro). -->
       <div class="footer-sponsor">
         <span>Sponsored by</span>
         <a href="https://www.instagram.com/zaluvin/?utm_source=ig_web_button_share_sheet"
            target="_blank" rel="noopener"
            class="footer-sponsor-icon"
-           aria-label="Sponsored by zaluvin — abrir Instagram"></a>
+           aria-label="Sponsored by zaluvin — abrir Instagram">
+          <img src="site_elo_rosa/images/zaluvin.png" alt="Zaluvin">
+        </a>
       </div>
     </div>
 

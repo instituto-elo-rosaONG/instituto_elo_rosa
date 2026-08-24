@@ -703,20 +703,29 @@ footer{
 }
 
 /* --------------------------------------------------------------------------
-   1.8d — ANIMAÇÃO "ICON-POP" — usada em todos os outros ícones (YouTube,
-   WhatsApp, Instagram, Gmail, telefone, Pix e o botão flutuante): DIMINUI →
-   CRESCE → volta ao normal, sempre ao passar o mouse — o mesmo espírito de
-   "ícone animado no hover" que o zaluvin tem, só que na curva inversa.
+   1.8d — EFEITO "LIVRO NA ESTANTE" (eixo X) — usado em todos os ícones do
+   rodapé (YouTube, WhatsApp, Instagram, Gmail, telefone, Pix) e no botão
+   flutuante. Ao passar o mouse, o ícone gira 18° em torno do eixo X, com o
+   ponto fixo (transform-origin) no CANTO INFERIOR ESQUERDO da imagem —
+   como se fosse um livro sendo puxado/escolhido numa estante: a base
+   esquerda fica presa, e o ícone "tomba" para baixo a partir dali.
    -------------------------------------------------------------------------- */
+.footer-social-col a,
+.footer-social-col button,
+.contact-fab{
+  perspective:300px;   /* profundidade 3D para o giro parecer real */
+}
 .icon-pop img,
 .contact-fab img{
-  transform:scale(1);
-  transition:transform .35s ease;
+  transform-origin:left bottom;   /* ponto 0 = canto inferior esquerdo */
+  transform:rotateX(0deg);
+  transition:transform .45s cubic-bezier(.22,1,.36,1), filter .3s ease;
   will-change:transform;
 }
 .icon-pop:hover img,
 .contact-fab:hover img{
-  animation:bubblePopInverse .85s cubic-bezier(.33,1,.68,1) forwards;
+  transform:rotateX(18deg);
+  filter:drop-shadow(0 5px 8px rgba(0,0,0,.3));
 }
 
 /* Linha inferior do rodapé: copyright à esquerda, slogan à direita */

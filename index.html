@@ -129,35 +129,42 @@
     <p>Nossa atuação é pautada pela ética, transparência, responsabilidade social e pelo compromisso de construir uma sociedade mais justa, igualitária e livre de violência.</p>
   </div>
 
-  <!-- Cada carta = 2 camadas: ".mission-card-wrap" (moldura externa, cantos
-       quadrados, rosa-lilás, e é ela que recebe a inclinação de 15°) e
-       ".mission-card" (miolo roxo-escuro, cantos arredondados, com o
-       conteúdo e a imagem do instituto que aparece no hover). -->
-  <div class="mission-grid">
-    <div class="mission-card-wrap reveal">
-      <div class="mission-card" data-tilt-card>
-        <div class="mission-card-img"></div>
-        <span class="icon">🎯</span>
-        <h3>Missão</h3>
-        <p>Promover a proteção integral das mulheres por meio do acolhimento humanizado, da orientação jurídica, do apoio psicossocial, da educação e da capacitação profissional — atuando na prevenção e no enfrentamento da violência de gênero.</p>
+  <!-- Carrossel Missão/Visão/Propósito: 3 cartões em paralelogramo. Só o
+       cartão central fica grande e nítido; os outros 2 ficam nas laterais,
+       parcialmente escondidos e borrados. A ordem visível é controlada
+       via JS, trocando as classes .is-left / .is-center / .is-right. -->
+  <div class="mission-carousel reveal">
+    <button class="m-arrow m-arrow-left" id="mArrowLeft" aria-label="Cartão anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+
+    <div class="mission-track carousel-intro" id="missionTrack">
+      <div class="m-card is-left" data-key="missao">
+        <div class="m-card-inner">
+          <span class="icon">🎯</span>
+          <h3>Missão</h3>
+          <p>Promover a proteção integral das mulheres por meio do acolhimento humanizado, da orientação jurídica, do apoio psicossocial, da educação e da capacitação profissional — atuando na prevenção e no enfrentamento da violência de gênero.</p>
+        </div>
+      </div>
+      <div class="m-card is-center" data-key="visao">
+        <div class="m-card-inner">
+          <span class="icon">🔭</span>
+          <h3>Visão</h3>
+          <p>Ser referência nacional na promoção dos direitos das mulheres, no enfrentamento da violência de gênero e na construção de políticas públicas inovadoras que fortaleçam a autonomia feminina.</p>
+        </div>
+      </div>
+      <div class="m-card is-right" data-key="proposito">
+        <div class="m-card-inner">
+          <span class="icon">🌸</span>
+          <h3>Propósito</h3>
+          <p>Construir uma sociedade em que nenhuma mulher viva sob qualquer forma de violência e todas tenham acesso a direitos, autonomia financeira, educação e oportunidades para reconstruir suas histórias.</p>
+        </div>
       </div>
     </div>
-    <div class="mission-card-wrap reveal">
-      <div class="mission-card" data-tilt-card>
-        <div class="mission-card-img"></div>
-        <span class="icon">🔭</span>
-        <h3>Visão</h3>
-        <p>Ser referência nacional na promoção dos direitos das mulheres, no enfrentamento da violência de gênero e na construção de políticas públicas inovadoras que fortaleçam a autonomia feminina.</p>
-      </div>
-    </div>
-    <div class="mission-card-wrap reveal">
-      <div class="mission-card" data-tilt-card>
-        <div class="mission-card-img"></div>
-        <span class="icon">🌸</span>
-        <h3>Propósito</h3>
-        <p>Construir uma sociedade em que nenhuma mulher viva sob qualquer forma de violência e todas tenham acesso a direitos, autonomia financeira, educação e oportunidades para reconstruir suas histórias.</p>
-      </div>
-    </div>
+
+    <button class="m-arrow m-arrow-right" id="mArrowRight" aria-label="Próximo cartão">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
   </div>
 </section>
 

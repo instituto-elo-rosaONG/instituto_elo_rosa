@@ -154,35 +154,40 @@ a{color:inherit;text-decoration:none;}
 .eyebrow .mark img{width:100%;height:100%;object-fit:contain;}
 
 .hero-title-row{
-  display:flex;align-items:center;gap:16px;
+  display:flex;align-items:center;gap:6px;
   margin-bottom:6px;
   /* hierarquia: o título nasce mais à esquerda; a logo fica depois, à
-     direita dele — ordem no HTML é título -> logo */
+     direita dele, bem colada ao texto — ordem no HTML é título -> logo */
   justify-content:flex-start;
+  flex-wrap:nowrap;
 }
 .hero-logo{
-  width:1em;height:1em;
-  font-size:clamp(30px,4.6vw,48px);
+  /* logo maior em relação ao título, para ter presença ao lado do texto */
+  width:1.35em;height:1.35em;
+  font-size:clamp(28px,4.4vw,48px);
   flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
 }
 .hero-logo img{width:100%;height:100%;object-fit:contain;}
 .hero-title{
-  /* fonte um pouco menor que antes para caber numa única linha reta no
-     desktop, junto com a logo ao lado */
-  font-size:clamp(28px,4.4vw,48px);
+  /* fonte calculada para caber numa única linha reta no desktop, mesmo
+     com a logo maior ao lado */
+  font-size:clamp(26px,4vw,46px);
   font-weight:600;line-height:1.08;letter-spacing:-.01em;
-  /* nome inteiro do instituto em rosa */
-  color:var(--pink);
+  /* nome inteiro do instituto em rosa-lilás claro */
+  color:var(--lilac-light);
   text-shadow:0 4px 24px rgba(0,0,0,.35);
   white-space:nowrap;
+}
+@media(min-width:901px){
+  .hero-copy{max-width:none;}
 }
 @media(max-width:900px){
   .hero-title{white-space:normal;}
 }
 @media(max-width:760px){
-  .hero-logo{font-size:clamp(26px,7vw,40px);}
-  .hero-title{font-size:clamp(26px,7vw,40px);}
+  .hero-logo{width:1.2em;height:1.2em;font-size:clamp(24px,7vw,36px);}
+  .hero-title{font-size:clamp(24px,7vw,36px);}
 }
 
 .hero-tagline{
@@ -566,20 +571,31 @@ footer{
 .footer-sponsor-icon{
   width:44px;height:44px;flex-shrink:0;
   display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;
 }
 .footer-sponsor-icon img{
   width:100%;height:100%;object-fit:contain;
-  /* movimento 100% bidimensional: só translateX (horizontal) e translateY
-     (vertical) — sem eixo Z, sem rotação 3D */
-  transform:translateX(0) translateY(0);
+  /* rotação simples em 2D (eixo Z, sem perspectiva/3D), girando para a
+     direita ao passar o mouse */
+  transform:rotate(0deg) scale(1);
   transition:transform .5s cubic-bezier(.22,1,.36,1), filter .3s ease;
   will-change:transform;
 }
-/* ao passar o mouse: desliza sutilmente para a direita (X) e para cima (Y),
-   como se estivesse sendo puxado da prateleira, mas em 2D puro */
+/* ao passar o mouse: gira para a direita, com uma sombra sutil */
 .footer-sponsor-icon:hover img{
-  transform:translateX(4px) translateY(-6px);
-  filter:drop-shadow(2px 6px 8px rgba(0,0,0,.3));
+  transform:rotate(22deg) scale(1.04);
+  filter:drop-shadow(2px 4px 8px rgba(0,0,0,.3));
+}
+/* ao clicar: efeito de "bolha" — cresce, diminui e volta ao normal —
+   somado à rotação atual, sem nunca sumir da tela */
+.footer-sponsor-icon.is-clicked img{
+  animation:sponsorBubblePop .85s cubic-bezier(.33,1,.68,1) forwards;
+}
+@keyframes sponsorBubblePop{
+  0%{transform:rotate(22deg) scale(1);}
+  40%{transform:rotate(22deg) scale(1.22);}
+  70%{transform:rotate(22deg) scale(.95);}
+  100%{transform:rotate(22deg) scale(1);}
 }
 
 .footer-social-col a,

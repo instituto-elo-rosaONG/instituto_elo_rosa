@@ -268,96 +268,163 @@ section{padding:120px 6vw;position:relative;}
 .section-head h2{font-size:clamp(32px,4.5vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.01em;color:var(--pink-deep);}
 .section-head p{margin-top:16px;color:var(--ink-soft);line-height:1.75;font-size:15px;max-width:480px;}
 
-.mission-grid{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:flex-end;
-  gap:70px 44px;
-  padding:56px 6vw 70px;
-  perspective:1600px;
+/* --------------------------------------------------------------------------
+   1.6 — CARROSSEL MISSÃO / VISÃO / PROPÓSITO
+   3 cartões em formato de PARALELOGRAMO: base (topo/base) horizontal, em
+   90° com o "chão" da seção — as laterais são retas, inclinadas em 35°
+   cada, PARALELAS entre si (por isso paralelogramo, não trapézio).
+
+   Só 1 cartão fica no centro, em tamanho grande (+50%) e nítido; os outros
+   2 ficam encostados nas laterais do carrossel, mostrando ~15% de si
+   mesmos, borrados (blur). Clicar num cartão lateral (ou nas setas) o traz
+   para o centro, com uma animação de "pop" (cresce - encolhe - cresce mais
+   - estabiliza), enquanto o cartão que estava no centro vai para a lateral
+   e ganha blur.
+   -------------------------------------------------------------------------- */
+.mission-carousel{
+  position:relative;
+  height:560px;
+  max-height:78vh;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:40px 6vw 90px;
+  overflow:hidden;
+}
+.mission-track{
+  position:relative;
+  width:100%;
+  max-width:1100px;
+  height:100%;
 }
 
-.mission-card-wrap{
-  width:300px;
-  height:360px;
-  max-width:84vw;
+/* seta de navegação — sutil, indicando "clique para ver o próximo cartão" */
+.m-arrow{
+  position:absolute;
+  bottom:44px;z-index:8;
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(58,46,40,.06);
+  border:1px solid rgba(58,46,40,.14);
+  cursor:pointer;
+  transition:background .25s ease, transform .25s ease;
+  animation:arrowHint 2.2s ease-in-out infinite;
+}
+.m-arrow:hover{background:rgba(217,139,163,.18);}
+.m-arrow svg{width:18px;height:18px;stroke:var(--pink-deep);}
+.m-arrow.m-arrow-left{left:calc(50% - 300px);}
+.m-arrow.m-arrow-right{right:calc(50% - 300px);}
+@keyframes arrowHint{
+  0%,100%{transform:translateX(0);}
+  50%{transform:translateX(4px);}
+}
+.m-arrow-left{animation-name:arrowHintLeft;}
+@keyframes arrowHintLeft{
+  0%,100%{transform:translateX(0);}
+  50%{transform:translateX(-4px);}
+}
+
+/* cartão — camada externa (moldura escura) */
+.m-card{
+  position:absolute;
+  bottom:0;left:50%;
+  width:280px;height:340px;
   padding:8px;
   background:var(--wood);
-  border-radius:0;
-  box-shadow:0 16px 32px rgba(34,24,48,.22);
-  transform:rotate(-15deg);
-  transform-origin:bottom center;
-  transition:transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease;
-  perspective:1000px;
+  box-shadow:0 20px 40px rgba(34,24,48,.28);
   cursor:pointer;
-  display:flex;
-}
-.mission-card-wrap:hover{
-  transform:rotate(0deg) translateY(-12px);
-  box-shadow:0 30px 54px rgba(34,24,48,.34);
+  transform-origin:bottom center;
+  transition:transform .65s cubic-bezier(.22,1,.36,1),
+             filter .5s ease, opacity .5s ease, box-shadow .5s ease;
+  will-change:transform, filter;
 }
 
-.mission-card{
+/* miolo — formato de paralelogramo via clip-path (35° em cada lateral,
+   paralelas entre si) */
+.m-card-inner{
   position:relative;
-  flex:1;
-  overflow:hidden;
-  padding:34px 24px;
+  width:100%;height:100%;
   background:var(--lilac-light);
-  border-radius:12% / 50%;
-  color:var(--ink);
+  clip-path:polygon(26% 0%, 100% 0%, 74% 100%, 0% 100%);
+  padding:34px 30px 34px 44px;
   display:flex;flex-direction:column;
-  transform-style:preserve-3d;
-  transition:transform .35s ease, box-shadow .35s ease;
-  will-change:transform;
+  color:var(--ink);
+  transition:clip-path .4s ease;
 }
-.mission-card::after{
-  content:"";
-  position:absolute;inset:0;
-  border-radius:inherit;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 18px rgba(107,63,148,.10);
-  pointer-events:none;
+.m-card .icon{font-size:26px;display:block;margin-bottom:16px;}
+.m-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin-bottom:10px;color:var(--wood-dark);}
+.m-card p{font-size:13px;line-height:1.6;color:var(--ink-soft);}
+
+/* estado: cartão CENTRAL — grande (+50%), nítido, no topo da pilha */
+.m-card.is-center{
+  transform:translate(-50%,0) scale(1.5);
+  z-index:5;
+  filter:blur(0);
+  opacity:1;
+}
+/* "a quina desce": ao passar o mouse em qualquer borda do cartão central,
+   o canto inferior daquele lado baixa um pouco, como se fosse puxado —
+   efeito de "olhar/selecionar" a carta */
+.m-card.is-center:hover{
+  transform:translate(-50%,0) scale(1.5) rotate(var(--tilt,0deg));
+}
+.m-card.is-center:hover .m-card-inner{
+  clip-path:polygon(26% 0%, 100% 0%, 74% calc(100% + var(--corner,0px)), 0% 100%);
 }
 
-.mission-card-img{
-  position:absolute;inset:0;
-  background-image:url('../images/favicon.svg');
-  background-repeat:no-repeat;
-  background-position:center 78%;
-  background-size:58%;
-  opacity:.10;
-  mix-blend-mode:multiply;
-  transform:scale(1) translateZ(0);
-  transition:opacity .5s ease, transform .5s ease;
-  pointer-events:none;
+/* estados LATERAIS — só ~15% do cartão aparece, o resto fica escondido
+   atrás do centro (usando overflow do .mission-carousel), com blur */
+.m-card.is-left{
+  transform:translate(calc(-50% - 258px),0) scale(1);
+  z-index:2;
+  filter:blur(5px);
+  opacity:.55;
 }
-.mission-card-wrap:hover .mission-card-img{
-  opacity:.28;
-  transform:scale(1.08);
+.m-card.is-right{
+  transform:translate(calc(-50% + 258px),0) scale(1);
+  z-index:2;
+  filter:blur(5px);
+  opacity:.55;
 }
 
-.mission-card .icon,
-.mission-card h3,
-.mission-card p{
-  position:relative;z-index:1;
+/* animação de seleção: cresce - encolhe - cresce mais - estabiliza */
+.m-card.is-center.just-selected{
+  animation:cardSelectPop .75s cubic-bezier(.33,1,.68,1);
 }
-.mission-card .icon{font-size:26px;display:block;margin-bottom:16px;}
-.mission-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:21px;margin-bottom:10px;color:var(--wood-dark);}
-.mission-card p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);}
-
-@media(max-width:760px){
-  .mission-grid{flex-direction:column;align-items:center;gap:32px;padding:40px 6vw 56px;}
-  .mission-card-wrap{
-    width:100%;max-width:420px;height:320px;
-    transform:none;
-  }
-  .mission-card-wrap:hover{transform:translateY(-6px);}
-  .mission-card{border-radius:8% / 14%;}
+@keyframes cardSelectPop{
+  0%{transform:translate(-50%,0) scale(1.5);}
+  28%{transform:translate(-50%,0) scale(1.32);}
+  55%{transform:translate(-50%,0) scale(1.62);}
+  100%{transform:translate(-50%,0) scale(1.5);}
 }
 
-.mission-grid.three-col{grid-template-columns:repeat(3,1fr);}
-@media(max-width:900px){ .mission-grid.three-col{grid-template-columns:repeat(2,1fr);} }
-@media(max-width:600px){ .mission-grid.three-col{grid-template-columns:1fr;} }
+/* entrada inicial: o cartão central "chega" da direita para a esquerda e
+   se estabiliza no centro */
+.mission-track.carousel-intro .m-card.is-center{
+  animation:cardEnterFromRight .9s cubic-bezier(.22,1,.36,1);
+}
+@keyframes cardEnterFromRight{
+  0%{transform:translate(calc(-50% + 520px),0) scale(1.5);opacity:0;}
+  100%{transform:translate(-50%,0) scale(1.5);opacity:1;}
+}
+
+@media(max-width:900px){
+  .mission-carousel{height:480px;}
+  .m-card{width:220px;height:280px;}
+  .m-card.is-left{transform:translate(calc(-50% - 190px),0) scale(1);}
+  .m-card.is-right{transform:translate(calc(-50% + 190px),0) scale(1);}
+  .m-arrow.m-arrow-left{left:calc(50% - 210px);}
+  .m-arrow.m-arrow-right{right:calc(50% - 210px);}
+}
+@media(max-width:600px){
+  .mission-carousel{height:440px;padding:30px 4vw 80px;}
+  .m-card{width:180px;height:240px;}
+  .m-card.is-center{transform:translate(-50%,0) scale(1.3);}
+  .m-card.is-left{transform:translate(calc(-50% - 150px),0) scale(.9);}
+  .m-card.is-right{transform:translate(calc(-50% + 150px),0) scale(.9);}
+  .m-card h3{font-size:18px;}
+  .m-card p{font-size:11.5px;}
+  .m-arrow.m-arrow-left{left:calc(50% - 168px);}
+  .m-arrow.m-arrow-right{right:calc(50% - 168px);}
+}
 
 .values{background:var(--cream-deep);}
 .values-list{

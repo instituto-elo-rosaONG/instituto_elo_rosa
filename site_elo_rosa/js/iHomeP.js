@@ -45,9 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var drawer      = document.getElementById('menuDrawer');
   var overlay     = document.getElementById('menuOverlay');
 
-  /* C.1 — abrir/fechar a gaveta (cortina no desktop, peça pequena no mobile).
-     Cada verificação é independente: se algum elemento não existir, o resto
-     continua funcionando normalmente. */
   if (drawer) {
     var isOpen = false;
 
@@ -80,8 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* C.2 — esconder a faixa depois da 2ª metade da página ao descer,
-           mostrar a pastilha no lugar; ao subir um pouco, faixa volta. */
   if (nav && pill) {
     var lastY = window.scrollY;
     var ticking = false;
@@ -117,11 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ------------------------------------------------------------------------
      C.3) BOTÕES ".fx-btn" — "Descobrir", "fazer parte" e "eventos".
-          Ao clicar: animação suave de bolha (sem sumir). Além disso:
-          - se o link é uma âncora da própria página (começa com "#"),
-            rola suavemente até lá;
-          - se o link aponta para outra página (ex: eventos.html), espera
-            a animação começar antes de navegar, para o efeito ser visível.
      ------------------------------------------------------------------------ */
   var fxButtons = document.querySelectorAll('.fx-btn');
   fxButtons.forEach(function (btn) {
@@ -129,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
       var href = btn.getAttribute('href') || '';
       var isAnchor = href.charAt(0) === '#';
 
-      // reinicia a animação mesmo em cliques seguidos
       btn.classList.remove('is-clicked');
       void btn.offsetWidth;
       btn.classList.add('is-clicked');
@@ -141,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       } else if (href && href !== '#') {
-        // link para outra página: deixa a bolha começar antes de navegar
         e.preventDefault();
         setTimeout(function () {
           window.location.href = href;
@@ -153,6 +141,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ------------------------------------------------------------------------
+     C.4) ÍCONE "SPONSORED BY" (zaluvin) — ao clicar, dispara o efeito de
+          bolha (cresce - diminui - volta), somado à rotação do hover.
+          Este link abre em NOVA ABA (target="_blank"), então, diferente
+          dos botões .fx-btn, aqui NÃO usamos preventDefault: a navegação
+          segue seu curso normal enquanto a animação toca por cima.
+     ------------------------------------------------------------------------ */
+  var sponsorIcon = document.querySelector('.footer-sponsor-icon');
+  if (sponsorIcon) {
+    sponsorIcon.addEventListener('click', function () {
+      sponsorIcon.classList.remove('is-clicked');
+      void sponsorIcon.offsetWidth;
+      sponsorIcon.classList.add('is-clicked');
+    });
+    sponsorIcon.addEventListener('animationend', function () {
+      sponsorIcon.classList.remove('is-clicked');
+    });
+  }
 
   /* ------------------------------------------------------------------------
      D) COPIAR E-MAIL / TELEFONE / PIX DO RODAPÉ
@@ -192,23 +198,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ------------------------------------------------------------------------
      E) CARTAS "TIRAR O LIVRO DA ESTANTE" — Missão/Visão/Propósito
-        Ao passar o mouse: a carta gira 17° em torno do eixo Y, a partir da
-        borda esquerda (como um livro sendo puxado de uma prateleira — mesmo
-        espírito do ícone do zaluvin no rodapé). Enquanto o mouse se move
-        sobre a carta, esse giro-base de 17° ainda reage sutilmente à
-        posição do cursor, para dar profundidade extra. Desativado em telas
-        de toque (sem "hover" disponível).
      ------------------------------------------------------------------------ */
   var supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
   if (supportsHover) {
     var tiltWraps = document.querySelectorAll('.mission-card-wrap');
-    var BOOK_TILT = 17; // graus da inclinação-base "livro saindo da estante"
+    var BOOK_TILT = 17;
 
     tiltWraps.forEach(function (wrap) {
       var card = wrap.querySelector('[data-tilt-card]');
       if (!card) return;
 
-      // o giro nasce a partir da borda esquerda, como a lombada do livro
       card.style.transformOrigin = 'left center';
 
       wrap.addEventListener('mouseenter', function () {
@@ -217,8 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       wrap.addEventListener('mousemove', function (e) {
         var rect = wrap.getBoundingClientRect();
-        var py = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 a 0.5
-        var extraTiltX = -py * 8; // pequena variação vertical ao mover o mouse
+        var py = (e.clientY - rect.top) / rect.height - 0.5;
+        var extraTiltX = -py * 8;
         card.style.transform =
           'rotateY(-' + BOOK_TILT + 'deg) rotateX(' + extraTiltX + 'deg) translateZ(14px)';
       });

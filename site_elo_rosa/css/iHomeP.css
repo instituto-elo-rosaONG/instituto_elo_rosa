@@ -170,14 +170,20 @@ a{color:inherit;text-decoration:none;}
 }
 .hero-logo img{width:100%;height:100%;object-fit:contain;}
 .hero-title{
-  /* fonte calculada para caber numa única linha reta no desktop, mesmo
-     com a logo maior ao lado */
-  font-size:clamp(26px,4vw,46px);
+  /* fonte aumentada — ainda cabe numa linha reta no desktop */
+  font-size:clamp(30px,4.8vw,56px);
   font-weight:600;line-height:1.08;letter-spacing:-.01em;
-  /* nome inteiro do instituto em rosa-lilás claro */
-  color:var(--lilac-light);
   text-shadow:0 4px 24px rgba(0,0,0,.35);
   white-space:nowrap;
+}
+/* "Instituto" em branco forte */
+.hero-title-word{
+  color:#FFFFFF;
+}
+/* "Elo Rosa" em rosa bem forte */
+.hero-title-accent{
+  color:var(--pink-deep);
+  text-shadow:0 2px 16px rgba(0,0,0,.3);
 }
 @media(min-width:901px){
   .hero-copy{max-width:none;}

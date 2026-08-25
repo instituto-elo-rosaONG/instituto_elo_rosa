@@ -264,8 +264,8 @@ a{color:inherit;text-decoration:none;}
 
 section{padding:120px 6vw;position:relative;}
 .section-head{max-width:640px;margin-bottom:64px;}
-.section-head .eyebrow{color:var(--green);}
-.section-head h2{font-size:clamp(32px,4.5vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.01em;}
+.section-head .eyebrow{color:var(--purple-accent);}
+.section-head h2{font-size:clamp(32px,4.5vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.01em;color:var(--pink-deep);}
 .section-head p{margin-top:16px;color:var(--ink-soft);line-height:1.75;font-size:15px;max-width:480px;}
 
 .mission-grid{

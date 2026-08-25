@@ -197,35 +197,84 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ------------------------------------------------------------------------
-     E) CARTAS "TIRAR O LIVRO DA ESTANTE" — Missão/Visão/Propósito
+     E) CARROSSEL "MISSÃO / VISÃO / PROPÓSITO"
+        3 cartões (.m-card) dentro de #missionTrack, cada um com uma
+        posição lógica: 'left', 'center' ou 'right'. Clicar num cartão
+        lateral ou numa seta gira a ordem, aplica as classes de novo e
+        dispara a animação de "pop" no cartão que assume o centro.
      ------------------------------------------------------------------------ */
-  var supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
-  if (supportsHover) {
-    var tiltWraps = document.querySelectorAll('.mission-card-wrap');
-    var BOOK_TILT = 17;
+  var missionTrack = document.getElementById('missionTrack');
+  if (missionTrack) {
+    var mCards = Array.prototype.slice.call(missionTrack.querySelectorAll('.m-card'));
+    // ordem lógica inicial, da esquerda para a direita
+    var order = ['left', 'center', 'right'];
 
-    tiltWraps.forEach(function (wrap) {
-      var card = wrap.querySelector('[data-tilt-card]');
-      if (!card) return;
-
-      card.style.transformOrigin = 'left center';
-
-      wrap.addEventListener('mouseenter', function () {
-        card.style.transform = 'rotateY(-' + BOOK_TILT + 'deg)';
+    function applyOrder() {
+      mCards.forEach(function (card, i) {
+        card.classList.remove('is-left', 'is-center', 'is-right');
+        card.classList.add('is-' + order[i]);
       });
+    }
 
-      wrap.addEventListener('mousemove', function (e) {
-        var rect = wrap.getBoundingClientRect();
-        var py = (e.clientY - rect.top) / rect.height - 0.5;
-        var extraTiltX = -py * 8;
-        card.style.transform =
-          'rotateY(-' + BOOK_TILT + 'deg) rotateX(' + extraTiltX + 'deg) translateZ(14px)';
+    function rotate(direction) {
+      // direction: 1 = avança (próximo cartão vira central),
+      //           -1 = volta (cartão anterior vira central)
+      if (direction === 1) {
+        order.push(order.shift());
+      } else {
+        order.unshift(order.pop());
+      }
+      applyOrder();
+
+      var centerCard = mCards[order.indexOf('center')];
+      if (centerCard) {
+        centerCard.classList.remove('just-selected');
+        void centerCard.offsetWidth;
+        centerCard.classList.add('just-selected');
+      }
+    }
+
+    // clicar num cartão lateral também o seleciona (centraliza)
+    mCards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        if (card.classList.contains('is-left')) rotate(-1);
+        else if (card.classList.contains('is-right')) rotate(1);
       });
-
-      wrap.addEventListener('mouseleave', function () {
-        card.style.transform = '';
+      card.addEventListener('animationend', function (e) {
+        if (e.animationName === 'cardSelectPop') card.classList.remove('just-selected');
       });
     });
+
+    var arrowLeft = document.getElementById('mArrowLeft');
+    var arrowRight = document.getElementById('mArrowRight');
+    if (arrowLeft) arrowLeft.addEventListener('click', function () { rotate(-1); });
+    if (arrowRight) arrowRight.addEventListener('click', function () { rotate(1); });
+
+    // remove a animação de entrada depois que ela toca uma vez
+    setTimeout(function () { missionTrack.classList.remove('carousel-intro'); }, 1000);
+
+    // efeito "a quina desce": ao passar o mouse no cartão central, o canto
+    // inferior do lado mais próximo do cursor baixa um pouco (via variável
+    // CSS --corner), como se fosse puxado/selecionado
+    var supportsHoverMission = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+    if (supportsHoverMission) {
+      mCards.forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          if (!card.classList.contains('is-center')) return;
+          var rect = card.getBoundingClientRect();
+          var px = (e.clientX - rect.left) / rect.width; // 0 a 1
+          // quanto mais perto da borda, mais a quina desce; e um leve giro
+          var corner = 10 + Math.abs(px - 0.5) * 26;
+          var tilt = (px - 0.5) * 6;
+          card.style.setProperty('--corner', corner.toFixed(1) + 'px');
+          card.style.setProperty('--tilt', tilt.toFixed(2) + 'deg');
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.setProperty('--corner', '0px');
+          card.style.setProperty('--tilt', '0deg');
+        });
+      });
+    }
   }
 
 });

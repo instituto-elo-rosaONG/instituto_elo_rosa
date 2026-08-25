@@ -330,7 +330,7 @@ section{padding:120px 6vw;position:relative;}
 .m-card{
   position:absolute;
   bottom:0;left:50%;
-  width:350px;height:425px;
+  width:300px;height:520px;
   padding:0;
   background:transparent;
   cursor:pointer;
@@ -341,31 +341,33 @@ section{padding:120px 6vw;position:relative;}
 }
 
 /* miolo — formato de paralelogramo via clip-path (laterais paralelas,
-   inclinadas). Sombra própria via drop-shadow (acompanha o recorte,
-   diferente de box-shadow, que ficaria retangular). */
+   inclinadas). Agora escuro/roxo, com texto claro. Sombra própria via
+   drop-shadow (acompanha o recorte, diferente de box-shadow, que ficaria
+   retangular). */
 .m-card-inner{
   position:relative;
   width:100%;height:100%;
-  background:var(--lilac-light);
+  background:linear-gradient(165deg, var(--wood) 0%, var(--wood-dark) 100%);
   clip-path:polygon(26% 0%, 100% 0%, 74% 100%, 0% 100%);
   filter:drop-shadow(0 20px 34px rgba(34,24,48,.24));
   transition:clip-path .4s ease;
 }
 /* bloco de texto: gira levemente para acompanhar a angulação oblíqua das
    laterais do cartão, e fica centralizado no meio da largura da faixa
-   central do paralelogramo (não colado na quina) */
+   central do paralelogramo — largura reduzida e ângulo mais suave para
+   o texto não estourar as bordas inclinadas */
 .m-card-content{
   position:absolute;
   top:50%;left:50%;
-  width:72%;
-  transform:translate(-50%,-50%) rotate(-8deg);
+  width:56%;
+  transform:translate(-50%,-50%) rotate(-5deg);
   display:flex;flex-direction:column;
-  text-align:left;
-  color:var(--ink);
+  text-align:center;
+  color:#FFFFFF;
 }
-.m-card .icon{font-size:30px;display:block;margin-bottom:16px;}
-.m-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:25px;margin-bottom:12px;color:var(--wood-dark);}
-.m-card p{font-size:15px;line-height:1.6;color:var(--ink-soft);}
+.m-card .icon{font-size:28px;display:block;margin-bottom:14px;}
+.m-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:23px;margin-bottom:12px;color:#FFFFFF;}
+.m-card p{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.78);}
 
 /* estado: cartão CENTRAL — grande (+50%), nítido, no topo da pilha */
 .m-card.is-center{
@@ -385,15 +387,15 @@ section{padding:120px 6vw;position:relative;}
 }
 
 /* estados LATERAIS — deck bem espaçado: os cartões laterais ficam bem
-   afastados do centro, quase saindo da área visível, com blur */
+   afastados do centro, MENORES que o central, e com blur */
 .m-card.is-left{
-  transform:translate(calc(-50% - 620px),0) scale(1);
+  transform:translate(calc(-50% - 560px),0) scale(.62);
   z-index:2;
   filter:blur(6px);
   opacity:.5;
 }
 .m-card.is-right{
-  transform:translate(calc(-50% + 620px),0) scale(1);
+  transform:translate(calc(-50% + 560px),0) scale(.62);
   z-index:2;
   filter:blur(6px);
   opacity:.5;
@@ -421,26 +423,26 @@ section{padding:120px 6vw;position:relative;}
 }
 
 @media(max-width:1300px){
-  .m-card.is-left{transform:translate(calc(-50% - 460px),0) scale(1);}
-  .m-card.is-right{transform:translate(calc(-50% + 460px),0) scale(1);}
+  .m-card.is-left{transform:translate(calc(-50% - 400px),0) scale(.62);}
+  .m-card.is-right{transform:translate(calc(-50% + 400px),0) scale(.62);}
   .m-arrow.m-arrow-left{left:calc(50% - 340px);}
   .m-arrow.m-arrow-right{right:calc(50% - 340px);}
 }
 @media(max-width:900px){
-  .mission-carousel{height:600px;padding:40px 6vw 100px;}
-  .m-card{width:260px;height:320px;}
-  .m-card.is-left{transform:translate(calc(-50% - 280px),0) scale(1);}
-  .m-card.is-right{transform:translate(calc(-50% + 280px),0) scale(1);}
+  .mission-carousel{height:620px;padding:40px 6vw 100px;}
+  .m-card{width:230px;height:400px;}
+  .m-card.is-left{transform:translate(calc(-50% - 250px),0) scale(.62);}
+  .m-card.is-right{transform:translate(calc(-50% + 250px),0) scale(.62);}
   .m-arrow{bottom:110px;}
   .m-arrow.m-arrow-left{left:calc(50% - 230px);}
   .m-arrow.m-arrow-right{right:calc(50% - 230px);}
 }
 @media(max-width:600px){
-  .mission-carousel{height:540px;padding:30px 4vw 90px;}
-  .m-card{width:210px;height:270px;}
+  .mission-carousel{height:560px;padding:30px 4vw 90px;}
+  .m-card{width:190px;height:330px;}
   .m-card.is-center{transform:translate(-50%,0) scale(1.35);}
-  .m-card.is-left{transform:translate(calc(-50% - 200px),0) scale(.9);}
-  .m-card.is-right{transform:translate(calc(-50% + 200px),0) scale(.9);}
+  .m-card.is-left{transform:translate(calc(-50% - 175px),0) scale(.58);}
+  .m-card.is-right{transform:translate(calc(-50% + 175px),0) scale(.58);}
   .m-card h3{font-size:19px;}
   .m-card p{font-size:12.5px;}
   .m-arrow{bottom:90px;}
